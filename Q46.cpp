@@ -11,8 +11,7 @@ int main()
 {
 	cout << &x << " " << &y << " " << &u << " " << &v << endl;
 	for (int i = -2; i < 7; i++)
-		cout << i << " " << a[i] << " " << &a[i] << endl;
+		cout << i << " " << a[i] << endl;
 
 }
-//Kết quả in ra địa chỉ của các giá trị x,y,u,v
-// kết quả i tại -2 là 24 rồi 25 rồi quay về 21 rồi cứ tiếp tục đên hết sau đó in ra địa chỉ của các giá trị vừa rồi
+//Kết quả in ra từ vị trí tại địa chỉ &a[-2] đến &a[7] tương ứng với giá trị x y , a[5], u v 
