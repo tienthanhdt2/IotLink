@@ -1,0 +1,18 @@
+﻿  Q41.cpp
+  Q42.a.cpp
+  Q42.b.cpp
+  Q43.cpp
+E:\TIENTHANH\Question4\Question4\Q43.cpp(11,9): warning C4477: 'printf' : format string '%x' requires an argument of type 'unsigned int', but variadic argument 1 has type 'int *'
+E:\TIENTHANH\Question4\Question4\Q43.cpp(11,9): warning C4477: 'printf' : format string '%x' requires an argument of type 'unsigned int', but variadic argument 3 has type 'int (*)[10]'
+E:\TIENTHANH\Question4\Question4\Q43.cpp(12,9): warning C4477: 'printf' : format string '%x' requires an argument of type 'unsigned int', but variadic argument 1 has type 'int *'
+E:\TIENTHANH\Question4\Question4\Q43.cpp(12,9): warning C4477: 'printf' : format string '%x' requires an argument of type 'unsigned int', but variadic argument 4 has type 'int (*)[10]'
+  Q44.cpp
+  Q45.cpp
+  Generating Code...
+Q42.a.obj : error LNK2005: _main already defined in Q41.obj
+Q42.b.obj : error LNK2005: _main already defined in Q41.obj
+Q43.obj : error LNK2005: _main already defined in Q41.obj
+Q44.obj : error LNK2005: _main already defined in Q41.obj
+Q45.obj : error LNK2005: "void __cdecl swap(int &,int &)" (?swap@@YAXAAH0@Z) already defined in Q44.obj
+Q45.obj : error LNK2005: _main already defined in Q41.obj
+E:\TIENTHANH\Question4\Debug\Question4.exe : fatal error LNK1169: one or more multiply defined symbols found
