@@ -67,34 +67,26 @@ void List::addElement(int x)
 void List::insertElement(int x, int index)
 {
 	//DSLK có index nằm ở đầu
-	if (index == 0)
-	{
-		shared_ptr <Node> p = make_shared <Node> (x);
-		//DSLK rỗng
-		if (phead == NULL)
-		{
-			phead = ptail = p;
-		}
-		else
-		{
-			p->pnext = phead;
-			phead = p;
+	if (index == 0) {
+		shared_ptr<Node> temp = make_shared<Node>(data);
+		if (phead == nullptr)
+			phead = ptail = temp;
+		else {
+			temp->pnext = phead;
+			phead = temp;
 		}
 	}
-	else
-	{
-		//Tạo mới node có data bằng x
-		shared_ptr <Node> p = make_shared <Node>(x);
-		for (shared_ptr <Node> k = phead; k != NULL; k = k->pnext)
-		{
-			p->pnext = k->pnext; //Liên kết p với pt sau k
-			k->pnext = p; //liên kết k vơi p
-
-			if (k == ptail) //K nằm ở vị trí cuối 
-			{
-				ptail = p; // cập nhật lại ptail
+	else {
+		int previous = 0;
+		for (shared_ptr<Node> p = phead; p != nullptr; p = p->pnext) {
+			if (previous == index - 1) {
+				shared_ptr<Node> temp = make_shared<Node>(data);
+				temp->pnext = p->pnext;
+				p->pnext = temp;
+				if (temp->pnext == nullptr) ptail = temp;
 				break;
 			}
+			previous++;
 		}
 	}
 }
@@ -102,38 +94,18 @@ void List::insertElement(int x, int index)
 void List::deleteElement(int index)
 {
 	//DSLK 1 phần tử
-	if (phead == ptail && phead != NULL)
-	{
-		phead = ptail = NULL;
-	}
-	else if (phead != ptail)
-	{
-		//Nếu xóa đầu
-		if (index == 0)
-		{
-			//Tao 1 node để giữ địa chỉ node phead
-			shared_ptr<Node> p = phead;
-			phead = phead->pnext;
-		}
-		else
-		{
-			//
+	if (head != nullptr) {
+		if (index == 0) head = head->next;
+		else {
 			int before = 0;
-			for (shared_ptr<Node> p = phead; p != NULL; p = p->pnext)
-			{
-				if (before == index - 1)
-				{
-					shared_ptr<Node> k = p->pnext;
-					p->pnext = k->pnext;
-					//Vị trí cuối cập nhật lại ptail
-					if (k->pnext == NULL)
-					{
-						ptail = p;
-						break;
-					}
+			for (shared_ptr<Node> p = head; p->next != nullptr; p = p->next) {
+				if (before == index - 1) {
+					p->next = p->next->next;
+					if (p->next == nullptr) tail = p;
+					break;
 				}
+				before++;
 			}
-			before++;
 		}
 	}
 }
