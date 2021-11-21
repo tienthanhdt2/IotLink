@@ -18,7 +18,8 @@ Node::Node()
 	pnext = NULL;
 }
 
-Node::Node(int x) // Value giá trị node truyền vào
+//Tạo node có data=x vào node
+Node::Node(int x)
 {
 	data = x;
 	pnext = NULL;
@@ -38,11 +39,11 @@ public:
 	~List();
 	//Cac method
 	void addElement(int);
-	void insertElement(int,int);
+	void insertElement(int, int);
 	void deleteElement(int);
 	void printElement();
 	int searchElement(int);
-}; 
+};
 
 List::List()
 {
@@ -53,18 +54,16 @@ List::List()
 List::~List()
 {
 	Node* p = phead;
-	while (p!=NULL)
+	while (p != NULL)
 	{
 		Node* k = p;
 		p = p->pnext;
 		delete k;
 	}
 }
-//Thêm phần tử x vào cuối  dslk
-void List::addElement(int x) 
-{
-	//Tạo mới 1 node có data bằng x
-	Node* p = new Node(x);
+void  List::addElement(int data) {
+	// Tạo mới 1 node có data bằng value
+	Node* p = new Node(data);
 	if (phead == NULL)
 	{
 		phead = ptail = p;
@@ -74,82 +73,60 @@ void List::addElement(int x)
 		ptail->pnext = p;
 		ptail = p;
 	}
-	
 }
 //Chèn phần tử  có data=x vào vị trí:index
-void List::insertElement(int x,int index)
+void List::insertElement(int data, int index)
 {
 	//DSLK có index nằm ở đầu
-	if (index==0)
-	{
-		Node* p = new Node(x);
-		//DSLK rỗng
-		if (phead==NULL)
-		{
-			phead = ptail = p;
-		}
-		else
-		{
-			p->pnext = phead;
-			phead = p;
+	if (index == 0) {
+		Node* temp = new Node(data);
+		if (phead == nullptr) phead = ptail = temp;
+		else {
+			temp->pnext = phead;
+			phead = temp;
 		}
 	}
-	else
-	{
-		//Tạo mới node có data bằng x
-		Node* p = new Node(x);
-		for (Node* k = phead; k != NULL; k = k->pnext)
-		{
-			p->pnext = k->pnext; //Liên kết p với pt sau k
-			k->pnext = p; //liên kết k vơi p
-
-			if (k == ptail) //K nằm ở vị trí cuối 
-			{
-				ptail = p; // cập nhật lại ptail
+	else {
+		int position = 0;
+		for (Node* p = phead; p != nullptr; p = p->pnext) {
+			if (position == index - 1) {
+				Node* temp = new Node(data);
+				temp->pnext = p->pnext;
+				p->pnext = temp;
+				if (temp->pnext == nullptr)
+				{
+					ptail = temp;
+				}
 				break;
 			}
+			position++;
 		}
 	}
 }
 //Xóa phần tử khỏi danh sách ở vị trí index
-void List::deleteElement(int index) 
+void List::deleteElement(int index)
 {
-	//DSLK 1 phần tử
-	if (phead==ptail && phead!=NULL)
-	{
-		delete[] phead;
-		phead = ptail = NULL;
-	}
-	else if(phead!=ptail)
-	{
-		//Nếu xóa đầu
-		if (index == 0)
-		{
-			//Tao 1 node để giữ địa chỉ node phead
-			Node* p = phead;
+	if (phead != nullptr) {
+		if (index == 0) {
+			Node* temp = phead;
 			phead = phead->pnext;
-			delete p;
+			delete temp;
 		}
-		else
-		{
-			//
-			int before=0;
-			for (Node* p = phead; p != NULL; p = p->pnext)
-			{
-				if (before ==index-1)
-				{
-					Node* k = p->pnext;
-					p->pnext = k->pnext;
-					//Vị trí cuối cập nhật lại ptail
-					if (k->pnext==NULL)
+		else {
+			int before = 0;
+			for (Node* p = phead; p->pnext != nullptr; p = p->pnext) {
+				if (before == index - 1) {
+					Node* temp = p->pnext;
+					p->pnext = temp->pnext;
+					if (temp->pnext == nullptr)
 					{
-						ptail = p;
-						break;
+						ptail = p;//nếu xóa phần tử cuối thì cập nhật lại tail
 					}
-					delete k;
+					delete temp;
+					break;
 				}
+				before++;
 			}
-			before++;
 		}
 	}
 }
@@ -180,7 +157,7 @@ int main() {
 		while (kt) {
 			int choice;
 			system("cls");
-			cout << "1. ADD " << endl;
+			cout << "1.Nhap:" << endl;
 			cout << "2. Insert" << endl;
 			cout << "3. Delete" << endl;
 			cout << "4. Print" << endl;
@@ -195,7 +172,7 @@ int main() {
 				cout << "Nhap so phan tu can them: "; cin >> nums;
 				for (int i = 0; i < nums; i++) {
 					int x;
-					cout << "Nhap phan tu thu " << i << ": "; 
+					cout << "Nhap phan tu thu " << i << ": ";
 					cin >> x;
 					list.addElement(x);
 				}
@@ -208,6 +185,7 @@ int main() {
 				list.insertElement(data, index);
 				break;
 			}
+
 			case 3: {
 				int index;
 				cout << "Nhap vi tri can xoa: "; cin >> index;
@@ -236,3 +214,5 @@ int main() {
 		}
 	}
 }
+
+
